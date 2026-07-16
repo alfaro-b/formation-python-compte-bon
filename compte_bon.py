@@ -57,9 +57,9 @@ def choose_play_numbers(plates_list):
     return number1, number2
 
 
-def do_operation(number1, number2, operation):
+def do_operation(number1, number2, operation, numbers_list):
     result_number = calculate(number1, number2, operation)
-    available_numbers.append(result_number)
+    numbers_list.append(result_number)
     return result_number
 
 
@@ -82,12 +82,12 @@ if __name__ == "__main__":
     print(f"Nombre visé : {target_number}")
     print(f"Nombres disponibles : {available_numbers}")
 
-    while not user_stop() and len(available_numbers) > 1:
+    while len(available_numbers) > 1 and not user_stop():
         choice_operation = ask_operation()
         print(f"opération choisie : {choice_operation}")
         choice_numbers = choose_play_numbers(available_numbers)
         print(f"Nombres choisis pour l'opération : {choice_numbers}")
-        new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
+        new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation, available_numbers)
         print(f"Nombre obtenu : {new_number}")
         print(f"Nombres disponibles : {available_numbers}")
         print(f"Nombre à obtenir : {target_number}")
