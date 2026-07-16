@@ -16,8 +16,17 @@ def choose_target_number():
     return number
 
 
+def choose_six_plates(plates_stock):
+    plates = []
+    for _ in range(6):
+        plates.append(random.choice(plates_stock))
+    return plates
+
+
 initial_plates_stock = create_plates_stock()
 target_number = choose_target_number()
+plates_game = choose_six_plates(initial_plates_stock)
 
 print(initial_plates_stock)
 print(target_number)
+print(plates_game)
