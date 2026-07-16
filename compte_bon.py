@@ -33,10 +33,20 @@ def calculate(number1, number2, operation):
     return None
 
 
+def ask_operation():
+    choice = input("Choisissez un operation: (+, -, * ou /)")
+    while choice not in ("+", "-", "*", "/"):
+        print("Choisissez une des opérations proposées")
+        choice = input("Choisissez un operation: (+, -, * ou /)")
+    return choice
+
+
 initial_plates_stock = create_plates_stock()
 target_number = choose_target_number()
 plates_game = choose_six_plates(initial_plates_stock)
-
 print(initial_plates_stock)
 print(target_number)
 print(plates_game)
+
+choice_operation = ask_operation()
+print(choice_operation)
