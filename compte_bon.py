@@ -21,6 +21,18 @@ def choose_six_plates(plates_stock):
     return plates
 
 
+def calculate(number1, number2, operation):
+    if operation == "+":
+        return number1 + number2
+    elif operation == "-":
+        return number1 - number2
+    elif operation == "*":
+        return number1 * number2
+    elif operation == "/":
+        return number1 / number2
+    return None
+
+
 initial_plates_stock = create_plates_stock()
 target_number = choose_target_number()
 plates_game = choose_six_plates(initial_plates_stock)
