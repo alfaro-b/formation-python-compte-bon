@@ -57,6 +57,12 @@ def choose_play_numbers(plates_list):
     return number1, number2
 
 
+def do_operation(number1, number2, operation):
+    new_number = calculate(number1, number2, operation)
+    plates_game.append(new_number)
+    return new_number
+
+
 initial_plates_stock = create_plates_stock()
 target_number = choose_target_number()
 plates_game = choose_six_plates(initial_plates_stock)
@@ -68,3 +74,6 @@ choice_operation = ask_operation()
 print(choice_operation)
 choice_numbers = choose_play_numbers(plates_game)
 print(choice_numbers)
+new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
+print(new_number)
+print(plates_game)
