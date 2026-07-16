@@ -43,16 +43,16 @@ def ask_operation():
 
 def choose_play_numbers(plates_list):
 
-    number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
+    number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
     while number1 not in plates_list:
         print("Le nombre choisi ne fait pas parti de la liste.")
-        number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
+        number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
     plates_list.remove(number1)
 
-    number2 = int(input(f"Choisissez un deuxième nombre parmi les nombres disponibles {plates_list} : "))
+    number2 = int(input(f"Choisissez un deuxième nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
     while number2 not in plates_list:
         print("Le nombre choisi ne fait pas parti de la liste.")
-        number2 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
+        number2 = int(input(f"Choisissez un nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
     plates_list.remove(number2)
     return number1, number2
 
@@ -73,21 +73,25 @@ def user_stop():
         return False
 
 
+def format_numbers(numbers_list):
+    return " - ".join(map(str, numbers_list))
+
+
 if __name__ == "__main__":
 
     initial_plates_stock = create_plates_stock()
     target_number = choose_target_number()
     available_numbers = choose_six_plates(initial_plates_stock)
-    print(f"Plaques disponibles en début de jeu : {initial_plates_stock}")
+    print(f"Plaques disponibles en début de jeu : {format_numbers(available_numbers)}")
     print(f"Nombre visé : {target_number}")
-    print(f"Nombres disponibles : {available_numbers}")
+    print(f"Nombres disponibles : {format_numbers(available_numbers)}")
 
     while len(available_numbers) > 1 and not user_stop():
         choice_operation = ask_operation()
         print(f"opération choisie : {choice_operation}")
         choice_numbers = choose_play_numbers(available_numbers)
-        print(f"Nombres choisis pour l'opération : {choice_numbers}")
+        print(f"Nombres choisis pour l'opération : {format_numbers(choice_numbers)}")
         new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation, available_numbers)
         print(f"Nombre obtenu : {new_number}")
-        print(f"Nombres disponibles : {available_numbers}")
+        print(f"Nombres disponibles : {format_numbers(available_numbers)}")
         print(f"Nombre à obtenir : {target_number}")
