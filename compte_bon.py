@@ -34,25 +34,25 @@ def calculate(number1, number2, operation):
 
 
 def ask_operation():
-    choice = input("Choisissez un operation: (+, -, * ou /)")
+    choice = input("Choisissez un operation: (+, -, * ou /) : ")
     while choice not in ("+", "-", "*", "/"):
-        print("Choisissez une des opérations proposées")
-        choice = input("Choisissez un operation: (+, -, * ou /)")
+        print("Choisissez une des opérations proposées! ")
+        choice = input("Choisissez un operation: (+, -, * ou /) : ")
     return choice
 
 
 def choose_play_numbers(plates_list):
 
-    number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles : {plates_list}"))
+    number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
     while number1 not in plates_list:
         print("Le nombre choisi ne fait pas parti de la liste.")
-        number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles : {plates_list}"))
+        number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
     plates_list.remove(number1)
 
-    number2 = int(input(f"Choisissez un deuxième nombre parmi les nombres disponibles : {plates_list}"))
+    number2 = int(input(f"Choisissez un deuxième nombre parmi les nombres disponibles {plates_list} : "))
     while number2 not in plates_list:
         print("Le nombre choisi ne fait pas parti de la liste.")
-        number2 = int(input(f"Choisissez un nombre parmi les nombres disponibles : {plates_list}"))
+        number2 = int(input(f"Choisissez un nombre parmi les nombres disponibles {plates_list} : "))
     plates_list.remove(number2)
     return number1, number2
 
@@ -61,6 +61,16 @@ def do_operation(number1, number2, operation):
     new_number = calculate(number1, number2, operation)
     plates_game.append(new_number)
     return new_number
+
+
+def user_stop():
+    choice_stop = input("Voulez-vous arrêter? o/n : ").lower()
+    while choice_stop not in ("o", "n"):
+        choice_stop = input("Voulez-vous arrêter? o/n : ").lower()
+    if choice_stop == "o":
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
@@ -72,11 +82,12 @@ if __name__ == "__main__":
     print(f"Nombre visé : {target_number}")
     print(f"Nombres disponibles : {plates_game}")
 
-    choice_operation = ask_operation()
-    print(f"opération choisie : {choice_operation}")
-    choice_numbers = choose_play_numbers(plates_game)
-    print(f"Nombres choisis pour l'opération : {choice_numbers}")
-    new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
-    print(f"Nombre obtenu : {new_number}")
-    print(f"Nombres disponibles : {plates_game}")
-    print(f"Nombre à obtenir : {target_number}")
+    while not user_stop() and len(plates_game) > 0:
+        choice_operation = ask_operation()
+        print(f"opération choisie : {choice_operation}")
+        choice_numbers = choose_play_numbers(plates_game)
+        print(f"Nombres choisis pour l'opération : {choice_numbers}")
+        new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
+        print(f"Nombre obtenu : {new_number}")
+        print(f"Nombres disponibles : {plates_game}")
+        print(f"Nombre à obtenir : {target_number}")
