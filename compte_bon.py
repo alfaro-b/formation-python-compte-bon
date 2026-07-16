@@ -58,9 +58,9 @@ def choose_play_numbers(plates_list):
 
 
 def do_operation(number1, number2, operation):
-    new_number = calculate(number1, number2, operation)
-    plates_game.append(new_number)
-    return new_number
+    result_number = calculate(number1, number2, operation)
+    available_numbers.append(result_number)
+    return result_number
 
 
 def user_stop():
@@ -77,17 +77,17 @@ if __name__ == "__main__":
 
     initial_plates_stock = create_plates_stock()
     target_number = choose_target_number()
-    plates_game = choose_six_plates(initial_plates_stock)
+    available_numbers = choose_six_plates(initial_plates_stock)
     print(f"Plaques disponibles en début de jeu : {initial_plates_stock}")
     print(f"Nombre visé : {target_number}")
-    print(f"Nombres disponibles : {plates_game}")
+    print(f"Nombres disponibles : {available_numbers}")
 
-    while not user_stop() and len(plates_game) > 0:
+    while not user_stop() and len(available_numbers) > 1:
         choice_operation = ask_operation()
         print(f"opération choisie : {choice_operation}")
-        choice_numbers = choose_play_numbers(plates_game)
+        choice_numbers = choose_play_numbers(available_numbers)
         print(f"Nombres choisis pour l'opération : {choice_numbers}")
         new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
         print(f"Nombre obtenu : {new_number}")
-        print(f"Nombres disponibles : {plates_game}")
+        print(f"Nombres disponibles : {available_numbers}")
         print(f"Nombre à obtenir : {target_number}")
