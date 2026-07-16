@@ -12,7 +12,7 @@ def create_plates_stock():
 
 
 def choose_target_number():
-    number = random.randint(101, 1000)
+    number = random.randint(101, 999)
     return number
 
 
@@ -21,6 +21,8 @@ def choose_six_plates(plates_stock):
     for _ in range(6):
         plates.append(random.choice(plates_stock))
     return plates
+
+
 
 
 initial_plates_stock = create_plates_stock()
