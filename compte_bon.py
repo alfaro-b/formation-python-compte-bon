@@ -63,17 +63,20 @@ def do_operation(number1, number2, operation):
     return new_number
 
 
-initial_plates_stock = create_plates_stock()
-target_number = choose_target_number()
-plates_game = choose_six_plates(initial_plates_stock)
-print(initial_plates_stock)
-print(target_number)
-print(plates_game)
+if __name__ == "__main__":
 
-choice_operation = ask_operation()
-print(choice_operation)
-choice_numbers = choose_play_numbers(plates_game)
-print(choice_numbers)
-new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
-print(new_number)
-print(plates_game)
+    initial_plates_stock = create_plates_stock()
+    target_number = choose_target_number()
+    plates_game = choose_six_plates(initial_plates_stock)
+    print(f"Plaques disponibles en début de jeu : {initial_plates_stock}")
+    print(f"Nombre visé : {target_number}")
+    print(f"Nombres disponibles : {plates_game}")
+
+    choice_operation = ask_operation()
+    print(f"opération choisie : {choice_operation}")
+    choice_numbers = choose_play_numbers(plates_game)
+    print(f"Nombres choisis pour l'opération : {choice_numbers}")
+    new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation)
+    print(f"Nombre obtenu : {new_number}")
+    print(f"Nombres disponibles : {plates_game}")
+    print(f"Nombre à obtenir : {target_number}")
