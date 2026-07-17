@@ -42,14 +42,19 @@ def calculate(number1, number2, operation):
     :param operation: Une opération (+, -, * ou /)
     :return: Retourne le résultat de l'opération.
     """
+    # Addition
     if operation == "+":
         return number1 + number2
+    # Soustraction
     elif operation == "-":
-        return number1 - number2
+        if number1 > number2:
+            return number1 - number2
+    # Multiplication
     elif operation == "*":
         return number1 * number2
-    elif operation == "/":
-        return number1 / number2
+    # Division
+    elif operation == "/" and number2 != 0 and number1 % number2 == 0:
+        return number1 // number2
     return None
 
 
@@ -76,13 +81,21 @@ def choose_play_numbers(plates_list):
     while number1 not in plates_list:
         print("Le nombre choisi ne fait pas parti de la liste.")
         number1 = int(input(f"Choisissez un nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
-    plates_list.remove(number1)
 
     number2 = int(input(f"Choisissez un 2ème nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
-    while number2 not in plates_list:
-        print("Le nombre choisi ne fait pas parti de la liste.")
-        number2 = int(input(f"Choisissez un nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
-    plates_list.remove(number2)
+    while (
+        number2 not in plates_list
+        or (number1 == number2 and plates_list.count(number1) < 2)
+        # évite que l'utilisateur choisi deux fois le même nombre s'il n'était présent qu'une fois
+    ):
+        if number2 not in plates_list:
+            print("Le nombre choisi ne fait pas parti de la liste.")
+        else:
+            print(
+                f"Il n'y qu'un seul exemplaire du nombre {number1}. "
+                "Choisissez un autre nombre. "
+            )
+        number2 = int(input(f"Choisissez un 2ème nombre parmi les nombres disponibles {format_numbers(plates_list)} : "))
     return number1, number2
 
 
@@ -96,6 +109,10 @@ def do_operation(number1, number2, operation, numbers_list):
     :return: Le nouveau nombre qui est le résultat de l'opération.
     """
     result_number = calculate(number1, number2, operation)
+    if result_number is None:
+        return None
+    numbers_list.remove(number1)
+    numbers_list.remove(number2)
     numbers_list.append(result_number)
     return result_number
 
@@ -155,12 +172,19 @@ if __name__ == "__main__":
     print(f"Nombres disponibles : {format_numbers(available_numbers)}")
 
     while len(available_numbers) > 1 and not user_stop():
+
         choice_operation = ask_operation()
         print(f"opération choisie : {choice_operation}")
+
         choice_numbers = choose_play_numbers(available_numbers)
         print(f"Nombres choisis pour l'opération : {format_numbers(choice_numbers)}")
+
         new_number = do_operation(choice_numbers[0], choice_numbers[1], choice_operation, available_numbers)
-        print(f"Nombre obtenu : {new_number}")
+        if new_number is None:
+            print("C'est opération n'est pas possible")
+        else:
+            print(f"Nombre obtenu : {new_number}")
         print(f"Nombres disponibles : {format_numbers(available_numbers)}")
         print(f"Nombre à obtenir : {target_number}")
+
     display_result(available_numbers, target_number)
