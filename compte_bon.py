@@ -77,6 +77,22 @@ def format_numbers(numbers_list):
     return " - ".join(map(str, numbers_list))
 
 
+def display_result(numbers_list, desired_number):
+    nearest_number = numbers_list[0]
+    smallest_difference = abs(desired_number - nearest_number)
+    for number in numbers_list:
+        difference = abs(desired_number - number)
+        if difference < smallest_difference:
+            nearest_number = number
+            smallest_difference = difference
+
+    if smallest_difference == 0:
+        print(f"Le compte est bon. Vous avez trouvé le nombre exact {desired_number}. ")
+    else:
+        print(f"Le nombre le plus proche obtenu est {nearest_number}. ")
+        print(f"Il est à {smallest_difference} du nombre cible {desired_number}. ")
+
+
 if __name__ == "__main__":
 
     initial_plates_stock = create_plates_stock()
@@ -95,3 +111,5 @@ if __name__ == "__main__":
         print(f"Nombre obtenu : {new_number}")
         print(f"Nombres disponibles : {format_numbers(available_numbers)}")
         print(f"Nombre à obtenir : {target_number}")
+    display_result(available_numbers, target_number)
+    
